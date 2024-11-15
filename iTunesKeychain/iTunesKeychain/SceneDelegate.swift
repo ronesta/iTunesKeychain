@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
 
-        let searchViewController = ViewController()
+        let searchViewController = SearchViewController()
         let searchNavigationController = UINavigationController(rootViewController: searchViewController)
         let searchTabBarItem = UITabBarItem(title: "Search",
                                             image: UIImage(systemName: "magnifyingglass"),
@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         searchTabBarItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 16)], for: .normal)
         searchNavigationController.tabBarItem = searchTabBarItem
 
-        let historyViewController = UIViewController()
+        let historyViewController = SearchHistoryViewController()
         let historyNavigationController = UINavigationController(rootViewController: historyViewController)
         let historyTabBarItem = UITabBarItem(title: "History",
                                              image: UIImage(systemName: "clock"),
