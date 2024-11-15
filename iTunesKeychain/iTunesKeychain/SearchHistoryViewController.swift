@@ -75,4 +75,3 @@ extension SearchHistoryViewController: UITableViewDelegate {
         navigationController?.pushViewController(searchViewController, animated: true)
     }
 }
-

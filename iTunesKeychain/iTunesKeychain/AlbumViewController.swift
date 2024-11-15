@@ -95,4 +95,3 @@ final class AlbumViewController: UIViewController {
         collectionPriceLabel.text = "\(album.collectionPrice) $"
     }
 }
-
