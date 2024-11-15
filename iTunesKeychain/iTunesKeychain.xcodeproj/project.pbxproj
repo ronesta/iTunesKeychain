@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E1FE5BD22CE7B34D00360B07 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1FE5BD12CE7B34D00360B07 /* SnapKit */; };
+		E1FE5C002CE7B78200360B07 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E1FE5BFF2CE7B78200360B07 /* KeychainSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FE5C002CE7B78200360B07 /* KeychainSwift in Frameworks */,
 				E1FE5BD22CE7B34D00360B07 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +86,7 @@
 			name = iTunesKeychain;
 			packageProductDependencies = (
 				E1FE5BD12CE7B34D00360B07 /* SnapKit */,
+				E1FE5BFF2CE7B78200360B07 /* KeychainSwift */,
 			);
 			productName = iTunesKeychain;
 			productReference = E1FE5BB82CE7B31000360B07 /* iTunesKeychain.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				E1FE5BD02CE7B34D00360B07 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E1FE5BFE2CE7B78200360B07 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E1FE5BB92CE7B31000360B07 /* Products */;
@@ -360,6 +364,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		E1FE5BFE2CE7B78200360B07 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +379,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1FE5BD02CE7B34D00360B07 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		E1FE5BFF2CE7B78200360B07 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1FE5BFE2CE7B78200360B07 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
