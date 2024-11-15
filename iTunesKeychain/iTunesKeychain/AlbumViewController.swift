@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 final class AlbumViewController: UIViewController {
+    var album: Album?
 
     private let albumImageView: UIImageView = {
         let image = UIImageView()
@@ -78,6 +79,20 @@ final class AlbumViewController: UIViewController {
     }
 
     private func setupAlbum() {
+        guard let album else {
+            return
+        }
+
+        let urlString = album.artworkUrl100
+        ImageLoader.shared.loadImage(from: urlString) { [weak self] loadedImage in
+            DispatchQueue.main.async {
+                self?.albumImageView.image = loadedImage
+            }
+        }
+
+        albumNameLabel.text = album.collectionName
+        artistNameLabel.text = album.artistName
+        collectionPriceLabel.text = "\(album.collectionPrice) $"
     }
 }
 

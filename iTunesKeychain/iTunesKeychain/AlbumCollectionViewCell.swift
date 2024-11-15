@@ -78,5 +78,11 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 15
         layer.masksToBounds = true
     }
+
+    func configure(with album: Album, image: UIImage?) {
+        albumImageView.image = image
+        albumNameLabel.text = album.collectionName
+        artistNameLabel.text = album.artistName
+    }
 }
 
