@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchHistoryViewController: UIViewController {
+final class SearchHistoryViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .singleLine
@@ -71,6 +71,7 @@ extension SearchHistoryViewController: UITableViewDelegate {
 
     func performSearch(for term: String) {
         let searchViewController = SearchViewController()
+        searchViewController.searchBar.isHidden = true
         searchViewController.searchAlbums(with: term)
         navigationController?.pushViewController(searchViewController, animated: true)
     }

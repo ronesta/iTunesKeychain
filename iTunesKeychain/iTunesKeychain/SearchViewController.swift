@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class SearchViewController: UIViewController {
-    private let searchBar: UISearchBar = {
+    let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
         searchBar.placeholder = "Search Albums"

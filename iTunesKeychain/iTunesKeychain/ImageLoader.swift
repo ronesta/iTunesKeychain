@@ -11,6 +11,7 @@ import UIKit
 final class ImageLoader {
     static let shared = ImageLoader()
     private init() {}
+    var counter = 1
 
     func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
 
@@ -28,16 +29,24 @@ final class ImageLoader {
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let error {
                 print("Error: \(error.localizedDescription)")
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
                 return
             }
 
             if let data,
                let image = UIImage(data: data) {
                 KeychainService.shared.saveImage(data, key: urlString)
-                completion(image)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+                print("Load image", self.counter)
+                self.counter += 1
             } else {
-                completion(nil)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
             }
         }.resume()
     }
