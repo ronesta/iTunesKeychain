@@ -61,7 +61,8 @@ final class SearchViewController: UIViewController {
     }
 
     func searchAlbums(with term: String) {
-        if let savedAlbums = KeychainService.shared.loadAlbums(for: term) {
+        let savedAlbums = KeychainSevice.shared.loadAlbums(for: term)
+        if !savedAlbums.isEmpty {
             albums = savedAlbums
             collectionView.reloadData()
             return
@@ -69,15 +70,19 @@ final class SearchViewController: UIViewController {
 
         NetworkManager.shared.fetchAlbums(albumName: term) { [weak self] result in
             switch result {
-            case .success(let albums):
+            case .success(let fetchedAlbums):
                 DispatchQueue.main.async {
-                    self?.albums = albums.sorted { $0.collectionName < $1.collectionName }
+                    self?.albums = fetchedAlbums.sorted { $0.collectionName < $1.collectionName }
                     self?.collectionView.reloadData()
-                    KeychainService.shared.saveAlbums(albums, for: term)
-                    print("Successfully loaded \(albums.count) albums.")
+
+                    for album in fetchedAlbums {
+                        KeychainSevice.shared.saveAlbum(album, for: term)
+                    }
+
+                    print("Successfully loaded \(fetchedAlbums.count) albums.")
                 }
             case .failure(let error):
-                print("Failed to load images with error: \(error.localizedDescription)")
+                print("Failed to load albums with error: \(error.localizedDescription)")
             }
         }
     }
@@ -131,7 +136,7 @@ extension SearchViewController: UISearchBarDelegate {
         guard let searchTerm = searchBar.text, !searchTerm.isEmpty else {
             return
         }
-        KeychainService.shared.saveSearchTerm(searchTerm)
+        KeychainSevice.shared.saveSearchTerm(searchTerm)
         searchAlbums(with: searchTerm)
     }
 }

@@ -45,7 +45,7 @@ final class SearchHistoryViewController: UIViewController {
     }
 
     func updateSearchHistory() {
-        searchHistory = KeychainService.shared.getSearchHistory()
+        searchHistory = KeychainSevice.shared.getSearchHistory()
         self.tableView.reloadData()
     }
 }
