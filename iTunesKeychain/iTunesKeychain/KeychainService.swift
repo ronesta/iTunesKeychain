@@ -10,16 +10,19 @@ import Security
 
 final class KeychainSevice {
     static let shared = KeychainSevice()
-    private let historyKey = "searchHistory"
+
     private let queue = DispatchQueue(label: "KeychainServiceQueue")
+    private let historyKey = "searchHistory"
 
     private init() {}
 
     func saveAlbum(_ album: Album, for searchTerm: String) {
         let key = "\(searchTerm)-\(album.artistId)"
+
         do {
             let data = try JSONEncoder().encode(album)
             let status = save(data, forKey: key)
+
             if status != errSecSuccess {
                 print("Failed to save albums to keychain. Error code: \(status)")
             }
@@ -31,7 +34,9 @@ final class KeychainSevice {
     func loadAlbums(for searchTerm: String) -> [Album] {
         var albums = [Album]()
 
-        guard let keys = getAllKeys() else { return [] }
+        guard let keys = getAllKeys() else {
+            return []
+        }
         let relevantKeys = keys.filter { $0.hasPrefix("\(searchTerm)-") }
 
         for key in relevantKeys {
@@ -50,6 +55,7 @@ final class KeychainSevice {
 
     func saveImage(_ image: Data, key: String) {
         let status = save(image, forKey: key)
+
         if status != errSecSuccess {
             print("Failed to save image to keychain. Error code: \(status)")
         }
@@ -61,13 +67,17 @@ final class KeychainSevice {
 
     func saveSearchTerm(_ term: String) {
         var history = getSearchHistory()
+
         guard !history.contains(term) else {
             return
         }
+
         history.append(term)
+
         do {
             let data = try JSONEncoder().encode(history)
             let status = save(data, forKey: historyKey)
+
             if status != errSecSuccess {
                 print("Failed to save search history to keychain. Error code: \(status)")
             }
@@ -80,6 +90,7 @@ final class KeychainSevice {
         guard let data = load(forKey: historyKey) else {
             return []
         }
+
         do {
             return try JSONDecoder().decode([String].self, from: data)
         } catch {
@@ -139,6 +150,7 @@ extension KeychainSevice {
 
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
+
         guard status == errSecSuccess, let items = result as? [[String: Any]] else {
             print("Failed to retrieve keys from Keychain: \(status)")
             return nil
@@ -155,6 +167,7 @@ extension KeychainSevice {
         ]
 
         let status = SecItemCopyMatching(query as CFDictionary, nil)
+
         return status == errSecSuccess
     }
 
